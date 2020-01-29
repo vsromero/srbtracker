@@ -14,10 +14,10 @@ namespace SRBugTracker.Controllers
 {
     public class IssuesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly RDSContext _context;
         private readonly UserManager<User> _userManager;
 
-        public IssuesController(ApplicationDbContext context, UserManager<User> userManager)
+        public IssuesController(RDSContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;

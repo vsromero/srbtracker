@@ -35,12 +35,12 @@ namespace SRBugTracker
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });       
 
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<RDSContext>(options =>
                 options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                    Configuration.GetConnectionString("RDSContext")));
             services.AddDefaultIdentity<User>()
                 .AddRoles<Role>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<RDSContext>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

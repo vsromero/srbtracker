@@ -18,10 +18,10 @@ namespace SRBugTracker.Controllers
 {    
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly RDSContext _context;
         private readonly UserManager<User> _userManager;
 
-        public HomeController(ApplicationDbContext context, UserManager<User> userManager)
+        public HomeController(RDSContext context, UserManager<User> userManager)
         {
             _context = context;
             _userManager = userManager;
@@ -49,15 +49,21 @@ namespace SRBugTracker.Controllers
                 var openIssues = issues.Where(i => !isClosed(i.Status));
                 var closedIssues = issues.Where(i => isClosed(i.Status));
 
-                var issuesOpenedLastWeek = openIssues.Where(i => i.CreatedDate >= DateTime.UtcNow.AddDays(-7));
-                var issuesClosedLastWeek = closedIssues.Where(i => i.LastModifiedDate >= DateTime.UtcNow.AddDays(-7));
+                var issuesOpenedLastWeek = openIssues.Where(i => i.CreatedDate >= DateTime.UtcNow.AddDays(-7)).Take(5);
+                var issuesClosedLastWeek = closedIssues.Where(i => i.LastModifiedDate >= DateTime.UtcNow.AddDays(-7)).Take(5);
 
-                var firstCreated = issues.Min(i => i.CreatedDate);
-                var lastCreated = issues.Max(i => i.CreatedDate);
-                var weeks = lastCreated.Subtract(firstCreated).Days / 7;
+                var averageOpenedWeek = 0.0M;
+                var averageClosedWeek = 0.0M;
 
-                var averageOpenedWeek = Math.Round((decimal) issues.Count / weeks, 1);
-                var averageClosedWeek = Math.Round((decimal) issues.Where(i => isClosed(i.Status)).Count() / weeks, 1);
+                if (issues.Count>0)
+                {
+                    var firstCreated = issues.Min(i => i.CreatedDate);
+                    var lastCreated = issues.Max(i => i.CreatedDate);
+                    var weeks = lastCreated.Subtract(firstCreated).Days < 7 ? 1 : lastCreated.Subtract(firstCreated).Days / 7;
+
+                    averageOpenedWeek = Math.Round((decimal)issues.Count / weeks, 1);
+                    averageClosedWeek = Math.Round((decimal)issues.Where(i => isClosed(i.Status)).Count() / weeks, 1);
+                }                
 
                 var recentModified = issues.OrderByDescending(i => i.LastModifiedDate).Take(5);
                 var recentCreated = issues.OrderByDescending(i => i.CreatedDate).Take(5);

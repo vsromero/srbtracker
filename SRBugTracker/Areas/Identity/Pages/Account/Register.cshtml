@@ -38,6 +38,16 @@
                             </div>
                         }
                     }
+                    <div class="form-row form-group">
+                        <div class="col">
+                            <input asp-for="Input.FirstName" type="text" class="form-control" placeholder="First name">
+                            <span asp-validation-for="Input.FirstName" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                        <div class="col">
+                            <input asp-for="Input.LastName" type="text" class="form-control" placeholder="Last name">
+                            <span asp-validation-for="Input.LastName" class="invalid-feedback" style="display: block"></span>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-prepend">

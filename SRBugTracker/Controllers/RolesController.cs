@@ -11,10 +11,10 @@ namespace SRBugTracker.Controllers
     [Authorize(Roles = "Admin")]
     public class RolesController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly RDSContext _context;
         private readonly RoleManager<Role> _roleManager;
 
-        public RolesController(ApplicationDbContext context, RoleManager<Role> roleManager)
+        public RolesController(RDSContext context, RoleManager<Role> roleManager)
         {
             _context = context;
             _roleManager = roleManager;

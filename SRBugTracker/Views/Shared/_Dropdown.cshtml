@@ -5,7 +5,7 @@
     <div class=" dropdown-header noti-title">
         <h6 class="text-overflow m-0">Welcome!</h6>
     </div>
-    <a href="@Url.Action("Index")" class="dropdown-item">
+    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="dropdown-item">
         <i class="ni ni-settings-gear-65"></i>
         <span>Settings</span>
     </a>
@@ -13,7 +13,7 @@
         <i class="ni ni-calendar-grid-58"></i>
         <span>Activity</span>
     </a>
-    <a href="@Url.Action("Index")" class="dropdown-item">
+    <a href="@Url.Action("Contact", "Home")" class="dropdown-item">
         <i class="ni ni-support-16"></i>
         <span>Support</span>
     </a>

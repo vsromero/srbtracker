@@ -11,9 +11,9 @@ namespace SRBugTracker.Controllers
 {
     public class CommentsController : Controller
     {
-        private readonly ApplicationDbContext _context;
+        private readonly RDSContext _context;
         
-        public CommentsController(ApplicationDbContext context)
+        public CommentsController(RDSContext context)
         {
             _context = context;
         }
