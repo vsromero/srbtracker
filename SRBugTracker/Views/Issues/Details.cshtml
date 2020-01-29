@@ -15,7 +15,7 @@
     </div>
 </div>
 
-<h3>@Html.DisplayFor(model => model.Project.Name) - @Html.DisplayFor(model => model.Name)</h3>
+<h3><a href="@Url.Action("Details","Projects", new { id = Model.ProjectId })">@Html.DisplayFor(model => model.Project.Name)</a> - @Html.DisplayFor(model => model.Name)</h3>
 
 <div class="row">
     <div class="col-4"><p>@Html.DisplayNameFor(model => model.Severity): @Html.DisplayFor(model => model.Severity)</p></div>
