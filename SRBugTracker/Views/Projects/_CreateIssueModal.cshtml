@@ -1,0 +1,59 @@
+﻿@model SRBugTracker.ViewModels.IssueViewModel
+
+@{
+
+}
+
+<!-- Modal -->
+<div class="modal fade" id="addIssueModal" tabindex="-1" role="dialog" aria-labelledby="addIssueModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Issue</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form asp-controller="Issues" asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(issue => issue.Severity, new { @class = "control-label" })
+                        @Html.DropDownListFor(issue => issue.Severity, new SelectList(Enumerable.Range(1, 5)), "Select", new { @class = "form-control" })
+                        <span asp-validation-for="Severity" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(issue => issue.Priority, new { @class = "control-label" })
+                        @Html.DropDownListFor(issue => issue.Priority, new SelectList(Enumerable.Range(1, 5)), "Select", new { @class = "form-control" })
+                        <span asp-validation-for="Priority" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(issue => issue.Status, new { @class = "control-label" })
+                        @Html.DropDownListFor(issue => issue.Status, Html.GetEnumSelectList<Status>(), new { @class = "form-control" })
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    @Html.HiddenFor(issue => issue.Project, Model.Project)
+                    <div class="form-group">
+                        <input type="submit" id="addIssue" style="display: none;"/>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <label role="button" class="btn btn-secondary" data-dismiss="modal">Close</label>
+                <label for="addIssue" role="button" class="btn btn-primary" tabindex="0">Save changes</label>
+            </div>
+        </div>
+    </div>
+</div>

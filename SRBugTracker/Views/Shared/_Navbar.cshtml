@@ -1,0 +1,37 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+<nav class="navbar navbar-expand-md navbar-light bg-transparent" id="navbar-main">
+    <div class="container-fluid">
+        <!-- Form -->
+        <form class="navbar-search navbar-search-light form-inline mr-3 d-none d-md-flex ml-lg-auto" asp-action="Search" asp-controller="Home">
+            <div class="form-group mb-0">
+                <div class="input-group input-group-alternative">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Search" type="text" name="searchString">
+                </div>
+            </div>
+        </form>
+        <!-- User -->
+        <ul class="navbar-nav align-items-center d-none d-md-flex">
+            <li class="nav-item dropdown">
+                <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <div class="media align-items-center">
+                        <span class="avatar avatar-sm rounded-circle">
+                            <img alt="Image placeholder" src="https://cdn.pixabay.com/photo/2018/08/28/13/29/avatar-3637561_960_720.png">
+                        </span>
+                        <div class="media-body ml-2 d-none d-lg-block">
+                            <span class="mb-0 text-sm font-weight-bold">
+                                    @UserManager.GetUserName(User)
+                            </span>
+                        </div>
+                    </div>
+                </a>
+                <partial name="_Dropdown" />
+            </li>
+        </ul>
+    </div>
+</nav>

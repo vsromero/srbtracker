@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <UserSecretsId>aspnet-SRBugTracker-23294D4A-9F86-4880-B442-276C88A08023</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\20191030041013_modelfieldsadded.cs" />
+    <Compile Remove="Data\Migrations\20191030041013_modelfieldsadded.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191030200542_datedefaults.cs" />
+    <Compile Remove="Data\Migrations\20191030200542_datedefaults.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191030201233_addedfields.cs" />
+    <Compile Remove="Data\Migrations\20191030201233_addedfields.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191030221130_addedfields.cs" />
+    <Compile Remove="Data\Migrations\20191030221130_addedfields.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191101064408_issuestatus.cs" />
+    <Compile Remove="Data\Migrations\20191101064408_issuestatus.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191106043745_manytomany.cs" />
+    <Compile Remove="Data\Migrations\20191106043745_manytomany.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191106050131_mm.cs" />
+    <Compile Remove="Data\Migrations\20191106050131_mm.Designer.cs" />
+    <Compile Remove="Data\Migrations\20191128020417_addedcomments.cs" />
+    <Compile Remove="Data\Migrations\20191128020417_addedcomments.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.17" />
+    <PackageReference Include="MailKit" Version="2.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.1.2" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
+  </ItemGroup>
+
+</Project>

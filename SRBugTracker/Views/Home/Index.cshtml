@@ -1,0 +1,64 @@
+﻿@model SRBugTracker.ViewModels.IndexViewModel
+@{
+
+}
+
+<div class="row">
+    <div class="col">
+        <h5>Recent Created</h5>
+        @foreach (var issue in Model.RecentCreated)
+        {
+            <p>
+                <a href="@Url.Action("Details","Issues", new { id = issue.Id })">@issue.Name</a> -
+                <a href="@Url.Action("Details","Projects", new { id = issue.ProjectId })">@issue.Project.Name</a>
+            </p>
+        }
+    </div>
+    <div class="col">
+        <h5>Recent Modified</h5>
+        @foreach (var issue in Model.RecentModified)
+        {
+            <p>
+                <a href="@Url.Action("Details","Issues", new { id = issue.Id })">@issue.Name</a> -
+                <a href="@Url.Action("Details","Projects", new { id = issue.ProjectId })">@issue.Project.Name</a>
+            </p>
+        }
+    </div>
+    <div class="col">
+        <h5>Opened Last Week</h5>
+        @foreach (var issue in Model.LastWeekOpenedIssues)
+        {
+            <p>
+                <a href="@Url.Action("Details","Issues", new { id = issue.Id })">@issue.Name</a> -
+                <a href="@Url.Action("Details","Projects", new { id = issue.ProjectId })">@issue.Project.Name</a>
+            </p>
+        }
+    </div>
+    <div class="col">
+        <h5>Closed Last Week</h5>
+        @foreach (var issue in Model.LastWeekClosedIssues)
+        {
+            <p>
+                <a href="@Url.Action("Details","Issues", new { id = issue.Id })">@issue.Name</a> -
+                <a href="@Url.Action("Details","Projects", new { id = issue.ProjectId })">@issue.Project.Name</a>
+            </p>
+        }
+    </div>
+</div>
+
+<hr />
+
+<div class="d-flex justify-content-between">
+    <div>
+        <p><b>Total open issues: @Model.OpenIssuesCount</b></p>
+        <p><b>Total closed issues: @Model.ClosedIssuesCount</b></p>
+    </div>
+    <div>
+        <p><b>Average issues per week: @Model.AverageOpen</b></p>
+        <p><b>Average closed issues per week: @Model.AverageClosed</b></p>
+    </div>
+    <div>
+        <a href="@Url.Action("Create", "Projects")" role="button" class="btn btn-twitter">New Project</a>
+        <a href="@Url.Action("Create", "Issues")" role="button" class="btn btn-twitter">New Issue</a>
+    </div>
+</div>

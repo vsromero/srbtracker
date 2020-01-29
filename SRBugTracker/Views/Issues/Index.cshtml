@@ -1,0 +1,88 @@
+﻿@model IEnumerable<SRBugTracker.Models.Issue>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row my-3">
+    <div class="col"><h4>Issues</h4></div>
+    <div class="col d-flex justify-content-end"><a role="button" asp-action="Create" class="btn btn-twitter btn-sm">New Issue</a></div>
+    <div class="col"><input class="form-control form-control-sm" type="text" placeholder="Filter" id="filterInput"></div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="card shadow">
+            <div class="table-responsive">
+                <table class="table align-items-center table-light table-flush">
+                    <thead class="">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Name)</th>
+                            <th>@Html.DisplayNameFor(model => model.Project)</th>
+                            <th>@Html.DisplayNameFor(model => model.Status)</th>
+                            <th>@Html.DisplayNameFor(model => model.Severity)</th>
+                            <th>@Html.DisplayNameFor(model => model.Priority)</th>
+                            <th>@Html.DisplayNameFor(model => model.CreatedDate)</th>
+                            <th>@Html.DisplayNameFor(model => model.LastModifiedDate)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td><a href="@Url.Action("Details", "Issues", new { id = item.Id })" class="mb-0 text-sm">@Html.DisplayFor(modelItem => item.Name)</a></td>
+                                <td><a href="@Url.Action("Details", "Projects", new { id = item.Project.Id })" class="mb-0 text-sm">@Html.DisplayFor(modelItem => item.Project.Name)</a></td>
+                                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Severity)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Priority)</td>
+                                <td>@Html.DisplayFor(modelItem => item.CreatedDate)</td>
+                                <td>@Html.DisplayFor(modelItem => item.LastModifiedDate)</td>
+                                <td class="text-right">
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm btn-icon-only" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="dropdown-item">Edit</a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="dropdown-item">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.table').DataTable({
+                dom: "rt",
+                scrollCollapse: true,
+                columnDefs: [{
+                    orderable: false,
+                    targets: -1,
+                }],
+            });
+            $('.table').DataTable().columns.adjust().draw();
+        });
+
+        $('#filterInput').keyup(function () {
+            $('.table').DataTable().search($(this).val()).draw();
+        });
+
+        function delIssue(id, name) {
+            $('#deleteIssue').val(id);
+            $('#modalText').html(`<b>${name}</b`);
+        }
+
+    </script>
+}

@@ -1,0 +1,32 @@
+﻿@model SRBugTracker.ViewModels.ContactViewModel
+
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<User> UserManager
+
+<form asp-action="Contact" asp-controller="Home">
+    <div class="form-row form-group">
+        <div class="col">
+            <label asp-for="FirstName" class="control-label"></label>
+            <input asp-for="FirstName" class="form-control" />
+            <span asp-validation-for="FirstName" class="text-danger"></span>
+        </div>
+        <div class="col">
+            <label asp-for="LastName" class="control-label"></label>
+            <input asp-for="LastName" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Subject" class="control-label"></label>
+        <input asp-for="Subject" class="form-control" />
+        <span asp-validation-for="Subject" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="MessageBody" class="control-label"></label>
+        <textarea asp-for="MessageBody" rows="8" class="form-control"></textarea>
+        <span asp-validation-for="MessageBody" class="text-danger"></span>
+    </div>   
+    @Html.Hidden("UserEmail", User.Identity.Name)
+    <div class="form-group text-right">
+        <input type="submit" value="Send" class="btn btn-twitter" />
+    </div>
+</form>

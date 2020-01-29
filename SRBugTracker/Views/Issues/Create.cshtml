@@ -1,0 +1,97 @@
+﻿@model SRBugTracker.ViewModels.IssueViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create Issue</h2>
+<hr />
+
+<form asp-action="Create" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="control-label"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(issue => issue.Severity, new { @class = "control-label" })
+        @Html.DropDownListFor(issue => issue.Severity, new SelectList(Enumerable.Range(1, 5)), "Select", new { @class = "form-control" })
+        <span asp-validation-for="Severity" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(issue => issue.Priority, new { @class = "control-label" })
+        @Html.DropDownListFor(issue => issue.Priority, new SelectList(Enumerable.Range(1, 5)), "Select", new { @class = "form-control" })
+        <span asp-validation-for="Priority" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(issue => issue.Status, new { @class = "control-label" })
+        @Html.DropDownListFor(issue => issue.Status, Html.GetEnumSelectList<Status>(), new { @class = "form-control" })
+        <span asp-validation-for="Status" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(issue => issue.Project, new { @class = "control-label" })
+        @Html.DropDownListFor(issue => issue.Project, new SelectList(Model.Projects, "Id", "Name"), new { @class = "form-control" })
+        <span asp-validation-for="Project" class="text-danger"></span>
+    </div>
+    <div class="form-group text-right">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script type="text/javascript">
+        $('#Description').trumbowyg({
+            btnsDef: {
+                // Create a new dropdown
+                image: {
+                    dropdown: ['insertImage', 'base64'],
+                    ico: 'insertImage'
+                }
+            },
+            // Redefine the button pane
+            btns: [
+                ['formatting'],
+                ['strong', 'em', 'del'],
+                ['superscript', 'subscript'],
+                ['link'],
+                ['image'], // Our fresh created dropdown
+                ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                ['unorderedList', 'orderedList'],
+                ['horizontalRule'],
+                ['removeformat'],
+            ]
+        });
+
+        function addNewFile(field) {
+            var count = 0;
+            var fileArray = Array.prototype.slice.call(this.files);
+            //console.log(this);
+            fileArray.forEach(function (f, i) {
+                if (!f.type.match("image.")) {
+                    return;
+                }
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    console.log(e);
+                    var html =
+                        `<div class="col-3 col-md-2 col-lg-1"><img class="w-50" src="${e.target.result}"></div>`;
+                    $('#gallery').prepend(html);
+                }
+                reader.readAsDataURL(f);
+                //console.log(i, f);
+            })
+            $(this).addClass('d-none');
+            count++;
+            $(this).after(`<input type="file" class="custom-file-input" id="files[${count}]" name="files[${count}]" onchange="addNewFile.call(this)" multiple>`)
+        }
+    </script>
+}
