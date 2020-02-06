@@ -15,7 +15,7 @@
     <div class="col">
         <div class="card shadow">
             <div class="table-responsive">
-                <table class="table align-items-center table-light table-flush">
+                <table class="table table-sm align-items-center table-light table-flush">
                     <thead class="">
                         <tr>
                             <th>@Html.DisplayNameFor(model => model.Name)</th>
@@ -66,6 +66,8 @@
         $(document).ready(function () {
             $('.table').DataTable({
                 dom: "rt",
+                paging: false,
+                scrollY: "70vh",
                 scrollCollapse: true,
                 columnDefs: [{
                     orderable: false,
